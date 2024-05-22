@@ -1,34 +1,19 @@
-// def buildJar() {
-//     echo "building the application..."
-//     sh 'mvn package'
-// } 
-
-// def buildImage() {
-//     echo "building the docker image..."
-//     withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-//         sh 'docker build -t nanajanashia/demo-app:jma-2.0 .'
-//         sh "echo $PASS | docker login -u $USER --password-stdin"
-//         sh 'docker push nanajanashia/demo-app:jma-2.0'
-//     }
-// } 
-
-// def deployApp() {
-//     echo 'deploying the application...'
-// } 
-
-// return this
-
-def buildApp() {
-    echo "building the applicatin..."
+def buildJar() {
+    echo "bulding the application"
+    sh "mvn package"
 }
 
-def testApp() {
-    echo "testing the application..."
+def buildImage() {
+    echo "building the docker image..."
+    withCredentials([usernamePassword(credentialsId: 'dockerhub-credential', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+        sh "docker build -t xuanhieu073/demo-app:jma-2.0 ."
+        sh "echo $PASS | docker login -u $USER --password-stdin"
+        sh "docker push xuanhieu073/demo-app:jma-2.0"
+    }
 }
 
 def deployApp() {
     echo "deploying the application..."
-    echo "version: ${params.VERSION}"
 }
 
 return this
