@@ -1,6 +1,5 @@
 def buildJar() {
     echo "bulding the application"
-    echo "test integration 2"
     sh "mvn package"
 }
 
@@ -15,6 +14,10 @@ def buildImage() {
 
 def deployApp() {
     echo "deploying the application..."
+    def dockerCmd = "docker run -p 3080:3080 -d xuanhieu073/demo-app:jma-2.0"
+    sshagent(['ec2-server-key']) {
+        sh "ssh -o StrictHostKeyChecking=no root@139.59.113.219 ${dockerCmd}"
+    }
 }
 
 return this
