@@ -1,6 +1,6 @@
 def buildJar() {
     echo "bulding the application"
-    echo "test integration 1"
+    echo "test integration 2"
     sh "mvn package"
 }
 
